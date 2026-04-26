@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mistik Fal — Ulduzların Sirri</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0b18;
+    --ink2: #1c1630;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --gold3: #f5e6b0;
+    --violet: #6b3fa0;
+    --violet2: #8b5fc0;
+    --mist: #e8e0f5;
+    --cream: #faf7f0;
+    --text: #2a2040;
+    --text2: #5a4f7a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'EB Garamond', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Stars background */
+  .stars-bg {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(107,63,160,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 70%, rgba(40,20,80,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(14,11,24,1) 0%, rgba(10,8,20,1) 100%);
+    z-index: 0;
+  }
+
+  .stars-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--min-op, 0.2); transform: scale(1); }
+    50% { opacity: var(--max-op, 0.9); transform: scale(1.3); }
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 3.5rem 0 2rem;
+  }
+
+  .crescent {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 20px rgba(201,168,76,0.5));
+    animation: floatMoon 4s ease-in-out infinite;
+  }
+
+  @keyframes floatMoon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0.5rem 0;
+  }
+
+  .ornament-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .ornament-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px var(--gold);
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    font-weight: 700;
+    color: var(--gold2);
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 40px rgba(201,168,76,0.4);
+    line-height: 1.3;
+    margin: 0.5rem 0;
+  }
+
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(232,192,106,0.7);
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+  }
+
+  /* Form card */
+  .glass-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    margin-bottom: 1.5rem;
+    box-shadow:
+      0 0 60px rgba(107,63,160,0.1),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  input, select, textarea {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 10px;
+    padding: 11px 14px;
+    color: var(--cream);
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(232,224,245,0.3);
+    font-style: italic;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: rgba(201,168,76,0.6);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+  }
+
+  select option {
+    background: #1c1630;
+    color: var(--cream);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .topic-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .topic-btn {
+    padding: 12px 8px;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    color: rgba(232,224,245,0.6);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+  }
+
+  .topic-btn:hover {
+    border-color: rgba(201,168,76,0.5);
+    color: var(--gold3);
+    background: rgba(201,168,76,0.07);
+  }
+
+  .topic-btn.active {
+    border-color: var(--gold);
+    color: var(--gold2);
+    background: rgba(201,168,76,0.12);
+    box-shadow: 0 0 20px rgba(201,168,76,0.1);
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(107,63,160,0.8), rgba(139,95,192,0.6));
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 12px;
+    color: var(--gold3);
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 30px rgba(107,63,160,0.3);
+    margin-top: 1.5rem;
+  }
+
+  .submit-btn:hover {
+    background: linear-gradient(135deg, rgba(107,63,160,1), rgba(139,95,192,0.9));
+    box-shadow: 0 0 50px rgba(107,63,160,0.5);
+    transform: translateY(-1px);
+  }
+
+  .submit-btn:active {
+    transform: scale(0.98) translateY(0);
+  }
+
+  /* Loading */
+  .loading {
+    text-align: center;
+    padding: 2.5rem;
+    display: none;
+  }
+
+  .crystal-ball {
+    font-size: 52px;
+    display: block;
+    animation: pulse 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(107,63,160,0.8));
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .loading p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: rgba(201,168,76,0.7);
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    animation: fade 1.5s ease-in-out infinite;
+  }
+
+  @keyframes fade { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+  /* Result */
+  .result-card {
+    background: rgba(107,63,160,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    display: none;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.8s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(107,63,160,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+  }
+
+  .result-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: rgba(250,247,240,0.92);
+    white-space: pre-line;
+    position: relative;
+  }
+
+  .result-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    text-align: center;
+    margin-top: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: rgba(201,168,76,0.35);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem 0 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: rgba(201,168,76,0.25);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 480px) {
+    .field-group { grid-template-columns: 1fr; }
+    .topic-grid { grid-template-columns: repeat(2, 1fr); }
+    h1 { font-size: 1.3rem; }
+    .glass-card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-bg"></div>
+<div class="stars-layer" id="stars"></div>
+
+<div class="content">
+  <header>
+    <span class="crescent">🌙</span>
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-dot"></div>
+      <div class="ornament-line"></div>
+    </div>
+    <h1>Mistik Fal</h1>
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-dot"></div>
+      <div class="ornament-dot"></div>
+      <div class="ornament-dot"></div>
+      <div class="ornament-line"></div>
+    </div>
+    <p class="subtitle">Ulduzların Səsi · Zamanın Sirri</p>
+  </header>
+
+  <div class="glass-card">
+    <div class="field-group">
+      <div class="field">
+        <label>Adın</label>
+        <input type="text" id="name" placeholder="Adını daxil et..." />
+      </div>
+      <div class="field">
+        <label>Bürcün</label>
+        <select id="burch">
+          <option value="">Seç...</option>
+          <option>Qoç ♈</option>
+          <option>Buğa ♉</option>
+          <option>Əkizlər ♊</option>
+          <option>Xərçəng ♋</option>
+          <option>Şir ♌</option>
+          <option>Qız ♍</option>
+          <option>Tərazi ♎</option>
+          <option>Əqrəb ♏</option>
+          <option>Oxatan ♐</option>
+          <option>Oğlaq ♑</option>
+          <option>Dolça ♒</option>
+          <option>Balıq ♓</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <label>Mövzu</label>
+      <div class="topic-grid">
+        <button class="topic-btn" onclick="selectTopic(this,'Sevgi və münasibətlər')">💞 Sevgi</button>
+        <button class="topic-btn" onclick="selectTopic(this,'Karyera və uğur')">⭐ Karyera</button>
+        <button class="topic-btn" onclick="selectTopic(this,'Həyat və gələcək')">🌙 Gələcək</button>
+        <button class="topic-btn" onclick="selectTopic(this,'Ümumi fal')">✨ Ümumi</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Sualın (isteğe bağlı)</label>
+      <textarea id="sual" placeholder="Ürəyindəki sualı bura yaz..."></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="falBax()">✦ Fala Bax ✦</button>
+  </div>
+
+  <div class="loading" id="loading">
+    <span class="crystal-ball">🔮</span>
+    <p>Ulduzlar oxunur, enerjilər toplanır...</p>
+  </div>
+
+  <div class="result-card" id="result">
+    <div class="result-header">
+      <div class="ornament-line"></div>
+      <span class="result-title" id="result-label">✦ FALIN ✦</span>
+      <div class="ornament-line"></div>
+    </div>
+    <div class="result-text" id="result-text"></div>
+    <div class="result-divider"></div>
+    <p style="text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(201,168,76,0.5);font-size:0.95rem;">✦ Ulduzlar danışdı ✦</p>
+  </div>
+
+  <p class="disclaimer">
+    🌙 Bu fal yalnız əyləncə məqsədi daşıyır.<br>
+    Həyat qərarları üçün mütəxəssislərə müraciət edin.
+  </p>
+
+  <footer>MISTIK FAL · ULDUZLARIN SƏSİ</footer>
+</div>
+
+<script>
+// Generate stars
+(function() {
+  const layer = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      --d:${2+Math.random()*4}s;
+      --delay:${Math.random()*4}s;
+      --min-op:${0.1+Math.random()*0.2};
+      --max-op:${0.6+Math.random()*0.4};
+    `;
+    layer.appendChild(s);
+  }
+})();
+
+let selectedTopic = '';
+
+function selectTopic(btn, topic) {
+  document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedTopic = topic;
+}
+
+async function falBax() {
+  const name = document.getElementById('name').value.trim();
+  const burch = document.getElementById('burch').value;
+  const sual = document.getElementById('sual').value.trim();
+
+  if (!name || !burch || !selectedTopic) {
+    alert('Zəhmət olmasa adını, bürcünü və mövzunu seç.');
+    return;
+  }
+
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('loading').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  const prompt = `Sən əyləncə məqsədli fal baxan köməkçisən.
+İstifadəçinin məlumatları:
+- Ad: ${name}
+- Bürc: ${burch}
+- Mövzu: ${selectedTopic}
+${sual ? `- Sual: ${sual}` : ''}
+
+Bu strukturda fal yaz (120-220 söz):
+1. Mistik giriş — ${name} adına müraciət et, enerjilər haqqında danış
+2. ${selectedTopic} mövzusunda dərin, şəxsi şərh
+3. Yumşaq, ilhamverici məsləhət
+4. Sirli, poetik yekun cümlə
+
+Qaydalar:
+- Yazın mistik, poetik, aydın olsun
+- Qəti proqnozlar vermə — ehtimal, hiss və istiqamət bildir
+- Qorxuducu ifadələrdən qaç, ümidverici ol
+- Tibbi, hüquqi, maliyyə məsləhəti vermə
+- Azərbaycan dilində yaz
+- Hər bölümü boş sətrlə ayır`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.map(i => i.text || '').join('') || 'Ulduzlar bu gün danışmaq istəmir... Sabah yenidən cəhd et.';
+    document.getElementById('result-label').textContent = `✦ ${name.toUpperCase()} ÜÇÜN FAL ✦`;
+    document.getElementById('result-text').textContent = text;
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    document.getElementById('result-text').textContent = 'Ulduzlarla əlaqə qurularkən xəta baş verdi. Bir az sonra yenidən cəhd et.';
+    document.getElementById('result').style.display = 'block';
+  }
+
+  document.getElementById('loading').style.display = 'none';
+}
+</script>
+</body>
+</html>
